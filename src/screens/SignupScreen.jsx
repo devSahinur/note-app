@@ -11,18 +11,46 @@ import {
 import React from "react";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const genderOptions = ["Male", "Female"];
 
 export default function SignupScreen() {
   const [gender, setGender] = React.useState(null);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [age, setAge] = React.useState("");
+
+  const auth = getAuth();
+
+  const signup = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
   return (
     <SafeAreaView style={styles.droidSafeArea}>
       <View style={styles.form}>
-        <Input placeholder={"Email address"} />
-        <Input placeholder="Password" secureTextEntry />
-        <Input placeholder="Full Name" />
-        <Input placeholder="Age" />
+        <Input
+          placeholder={"Email address"}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <Input
+          placeholder="Password"
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+        />
+        <Input placeholder="Full Name" onChangeText={(text) => setName(text)} />
+        <Input placeholder="Age" onChangeText={(text) => setAge(text)} />
         <View style={{ marginVertical: 20 }}>
           <Text>Select gender</Text>
         </View>
@@ -60,6 +88,7 @@ export default function SignupScreen() {
         <Button
           title={"Signup"}
           customStyles={{ alignSelf: "center", marginBottom: 60 }}
+          onPress={signup}
         />
         <Pressable>
           <Text>

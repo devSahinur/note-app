@@ -7,6 +7,20 @@ import SigninScreen from "./src/screens/SigninScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import CreateScreen from "./src/screens/CreateScreen";
 import EditScreen from "./src/screens/EditScreen";
+import { initializeApp } from "firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDxVmHCChA-jS97mcIDS4XhZECJkOM2hjA",
+  authDomain: "note-test-app-fb1a2.firebaseapp.com",
+  projectId: "note-test-app-fb1a2",
+  storageBucket: "note-test-app-fb1a2.appspot.com",
+  messagingSenderId: "786410346621",
+  appId: "1:786410346621:web:67a7471dd3abe696aff914"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 const AppTheme = {
   ...DefaultTheme,
